@@ -16,7 +16,7 @@ int main() {
     tokens.push_back("TOKEN1");
     tokens.push_back("TOKEN2");
 
-    tb::Tbot Bot1("YOUR TOKEN", "YOUR CHAT_ID");
+    tb::Tbot Bot1("TOKEN", "CHAT_ID");
 
     std::cout << Bot1.GetUpdates() << std::endl;
 

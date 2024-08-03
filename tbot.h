@@ -10,6 +10,7 @@ namespace tb {
         std::string token;
         std::string chat_id;
         std::string message;
+        const std::string tgApi = "https://api.telegram.org/bot";
 
     public:
         Tbot(const std::string& token, const std::string& chat_id) {
@@ -30,16 +31,10 @@ namespace tb {
 
             int result = 0;
 
-            if (message == "close")
-            {
-                return result = 1;
-            }
-
-
             for (int i = 0; i < tokens.size(); i++)
             {
 
-                std::string url = "https://api.telegram.org/bot" + tokens[i] + "/sendMessage";
+                std::string url = tgApi + tokens[i] + "/sendMessage";
                 std::string command = "curl -s -X POST " + url + " -d chat_id=" + chat_id + " -d text=\"" + message + "\"";
                 result += std::system(command.c_str());
                 system("cls");
@@ -52,7 +47,7 @@ namespace tb {
 
             int result = 0;
 
-            std::string url = "https://api.telegram.org/bot" + token + "/sendMessage";
+            std::string url = tgApi + token + "/sendMessage";
             std::string command = "curl -s -X POST " + url + " -d chat_id=" + chat_id + " -d text=\"" + message + "\"";
             result += std::system(command.c_str());
             system("cls");
@@ -63,15 +58,23 @@ namespace tb {
         std::string GetUpdates() {
 
             std::string json;
-
-            std::string url = "https://api.telegram.org/bot" + token + "/getUpdates";
+            std::string url = tgApi + token + "/getUpdates";
             std::string command = "curl -s -X POST " + url;
             json += std::system(command.c_str());
-
+          
             return json;
-
         }
 
+        std::string SetWebHook(const std::string& token, const std::string domain_ip, const std::string path) {
+
+            std::string jResult;
+            std::string url = tgApi + token + "/setwebhook" + "?url=https://" + domain_ip + "/" + path;
+            std::string command = "curl -s -X POST " + url;
+            jResult += std::system(command.c_str());
+
+            return jResult;
+        }
+        
     };
 
 }
